@@ -1,0 +1,35 @@
+import pandas as pd
+
+# Dataset loading, viewing, and cleaning for 2024, Mobile County, Alabama
+
+df = pd.read_csv("Amisiyas/MOT_2020_2024 mobile county/mot_mobile_2024.csv")
+
+df["Label (Grouping)"] = df["Label (Grouping)"].str.strip() # Removing whitespace
+
+print(df.shape) # Shape before cleaning
+
+# Dropping columns
+df = df.drop([
+    'Mobile County, Alabama!!Total!!Margin of Error',
+    'Mobile County, Alabama!!Car, truck, or van -- drove alone!!Margin of Error',
+    'Mobile County, Alabama!!Car, truck, or van -- carpooled!!Margin of Error',
+    'Mobile County, Alabama!!Public transportation!!Margin of Error',
+    'Mobile County, Alabama!!Worked from home!!Margin of Error'
+], axis=1)
+
+# Renaming columns
+df = df.rename(columns={
+    'Mobile County, Alabama!!Total!!Estimate': 'Total Pop, % Total Pop',
+    'Mobile County, Alabama!!Car, truck, or van -- drove alone!!Estimate': 'Drove Alone',
+    'Mobile County, Alabama!!Car, truck, or van -- carpooled!!Estimate': 'Carpooled',
+    'Mobile County, Alabama!!Public transportation!!Estimate': 'Public Transportation',
+    'Mobile County, Alabama!!Worked from home!!Estimate': 'Worked from Home'
+})
+
+# Dropping specific rows
+df = df.iloc[:112]
+df = df.drop(df.index[81:92])
+df = df[df["Label (Grouping)"] != "Mean travel time to work (minutes)"]
+
+print(df.head(10))
+print(df.tail(10))
