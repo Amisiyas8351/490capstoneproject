@@ -2,7 +2,7 @@ import pandas as pd
 
 # Dataset loading, viewing, and cleaning for 2024, Mobile County, Alabama
 
-df = pd.read_csv("Amisiyas/MOT_2020_2024 mobile county/mot_mobile_2024.csv")
+df = pd.read_csv("Amisiyas/MB-2024/mot_mobile_2024.csv")
 
 df["Label (Grouping)"] = df["Label (Grouping)"].str.strip() # Removing whitespace
 

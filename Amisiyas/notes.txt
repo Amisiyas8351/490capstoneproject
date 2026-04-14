@@ -1,0 +1,32 @@
+2020 Baldwin total population:
+2024 Baldwin total population
+
+2020 Mobile total population:
+2024 Mobile total population:
+
+To-do-list:
+
+1. Switch from percentages to whole numbers
+
+
+2020 Documentation:
+
+1. Users will need a lot of documentation to understand what certain columns & indexes of the dataset represents
+2. Mention:
+    a. argin of error
+    b. the 2020 inflation-adjusted amounts for the money portion
+3. In Baldwin county, Alabama, there are a total of 97,098 individuals who are workers over the age of 16 (relevant for our context), 90,849 (did not work from home)
+    a. 80,588 total drove alone
+    b. 7,733 carpooled
+    c. 30 took public transportation
+4. In Mobile county, Alabama, there are a total of 173,223 individuals who are workers over the age of 16 (relevant for our context), 90,849 (did not work from home)
+    a. 148,366 total drove alone
+    b. 11,994 carpooled
+    c. 896 took public transportation
+4. Delete "One race", "Foreign born", "Speak language other than English', "Workers 16 years and over", "Workers 16 years and over with earnings", "Median earnings (dollars)", "Workers 16 years and over for whom poverty status is determined", "Worked in state of residence" 
+    a. examine the "white alone..." and "white" race rows to see why they almost the same %
+
+ 2024 Documentation:
+
+ 1. There's a lot of missing data
+    
