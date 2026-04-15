@@ -2,7 +2,9 @@ import pandas as pd
 
 # Dataset loading, viewing, and cleaning for 2024, Mobile County, Alabama
 
-df = pd.read_csv("Amisiyas/MB-2024/mot_mobile_2024.csv")
+df = pd.read_csv("Amisiyas/MB_2024/mot_mobile_2024.csv")
+
+pd.set_option('display.max_rows', None) # Set option to display all rows
 
 df["Label (Grouping)"] = df["Label (Grouping)"].str.strip() # Removing whitespace
 
@@ -13,23 +15,59 @@ df = df.drop([
     'Mobile County, Alabama!!Total!!Margin of Error',
     'Mobile County, Alabama!!Car, truck, or van -- drove alone!!Margin of Error',
     'Mobile County, Alabama!!Car, truck, or van -- carpooled!!Margin of Error',
-    'Mobile County, Alabama!!Public transportation!!Margin of Error',
-    'Mobile County, Alabama!!Worked from home!!Margin of Error'
+    'Mobile County, Alabama!!Public transportation!!Margin of Error', 'Mobile County, Alabama!!Worked from home!!Margin of Error',
+    'Mobile County, Alabama!!Worked from home!!Estimate', 'Mobile County, Alabama!!Public transportation!!Margin of Error'
 ], axis=1)
 
 # Renaming columns
 df = df.rename(columns={
-    'Mobile County, Alabama!!Total!!Estimate': 'Total Pop, % Total Pop',
+    'Mobile County, Alabama!!Total!!Estimate': 'Total',
     'Mobile County, Alabama!!Car, truck, or van -- drove alone!!Estimate': 'Drove Alone',
     'Mobile County, Alabama!!Car, truck, or van -- carpooled!!Estimate': 'Carpooled',
-    'Mobile County, Alabama!!Public transportation!!Estimate': 'Public Transportation',
-    'Mobile County, Alabama!!Worked from home!!Estimate': 'Worked from Home'
+    'Mobile County, Alabama!!Public transportation!!Estimate': 'Public Trans',
+    'Label (Grouping)': 'Label'
 })
 
 # Dropping specific rows
 df = df.iloc[:112]
 df = df.drop(df.index[81:92])
-df = df[df["Label (Grouping)"] != "Mean travel time to work (minutes)"]
+df = df[df["Label"] != "Mean travel time to work (minutes)"]
 
-print(df.head(10))
-print(df.tail(10))
+# Setting 'Label' column as the index
+df = df.set_index("Label")
+
+# Drop rows with missing values
+df = df.dropna()
+
+# Renaming index values for better clarity
+df = df.rename(index = {"16 to 19 years": "Workers aged 16-19", "20 to 24 years": "Workers aged 20-24", "25 to 44 years": "Workers aged 25-44",
+                       "45 to 54 years": "Workers aged 45-54", "55 to 59 years": "Workers aged 55-59", "60 and over": "Workers over 60"})
+
+# Dropping more rows
+df = df.drop(df.index[69:79]) # Didnt contain data on entire mobile county population
+df = df.drop(df.index[69:76]) # Didn't contain data on entire mobile county population
+df = df.drop(["One race", "Foreign born", "Speak language other than English", "Workers 16 years and over", 
+              "Workers 16 years and over with earnings", "Median earnings (dollars)", 
+              "Workers 16 years and over for whom poverty status is determined", 
+              "Worked in state of residence", "Median age (years)"]) # Dropping rows that included totals/summaries of the data
+
+pd.set_option('display.max_rows', None) # Set option to display all rows
+
+df = df.drop(df.index[9:16])
+df = df.drop(df.index[23:45])
+print(df)
+
+# Checking datatypes, removing symbols, converting to numeric & whole numbers
+df["Total"] = df["Total"].str.replace('%', '').astype(float)
+df["Drove Alone"] = df["Drove Alone"].str.replace('%', '').astype(float)
+df["Carpooled"] = df["Carpooled"].str.replace('%', '').astype(float)
+df["Public Trans"] = df["Public Trans"].str.replace('%', '').astype(float)
+
+df["Total"] = ((df["Total"] / 100) * 182812).round(0).astype(int)
+df["Drove Alone"] = ((df["Drove Alone"] / 100) * 149677).round(0).astype(int)
+df["Carpooled"] = ((df["Carpooled"] / 100) * 12861).round(0).astype(int)
+df["Public Trans"] = ((df["Public Trans"] / 100) * 1042).round(0).astype(int)
+
+# Deleting missing data on race, poverty status, occupation, and industry
+
+print(df) #print all rows and columns of the cleaned dataframe

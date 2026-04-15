@@ -15,7 +15,9 @@ df = df.drop([
     'Baldwin County, Alabama!!Total!!Margin of Error',
     'Baldwin County, Alabama!!Car, truck, or van -- drove alone!!Margin of Error',
     'Baldwin County, Alabama!!Car, truck, or van -- carpooled!!Margin of Error',
-    'Baldwin County, Alabama!!Public transportation!!Margin of Error', 'Baldwin County, Alabama!!Worked from home!!Margin of Error', 'Baldwin County, Alabama!!Worked from home!!Estimate'
+    'Baldwin County, Alabama!!Public transportation!!Margin of Error', 'Baldwin County, Alabama!!Worked from home!!Margin of Error',
+    'Baldwin County, Alabama!!Worked from home!!Estimate', 'Baldwin County, Alabama!!Public transportation!!Margin of Error',
+    'Baldwin County, Alabama!!Public transportation!!Estimate'
 ], axis=1)
 
 # Renaming columns
@@ -23,7 +25,6 @@ df = df.rename(columns={
     'Baldwin County, Alabama!!Total!!Estimate': 'Total',
     'Baldwin County, Alabama!!Car, truck, or van -- drove alone!!Estimate': 'Drove Alone',
     'Baldwin County, Alabama!!Car, truck, or van -- carpooled!!Estimate': 'Carpooled',
-    'Baldwin County, Alabama!!Public transportation (excluding taxicab)!!Estimate': 'Public Trans',
     'Label (Grouping)': 'Label'
 })
 
@@ -52,16 +53,19 @@ df = df.drop(["One race", "Foreign born", "Speak language other than English", "
 
 pd.set_option('display.max_rows', None) # Set option to display all rows
 
+df = df.drop(df.index[9:16])
+df = df.drop(df.index[23:45])
 print(df)
+
 # Checking datatypes, removing symbols, converting to numeric & whole numbers
 df["Total"] = df["Total"].str.replace('%', '').astype(float)
 df["Drove Alone"] = df["Drove Alone"].str.replace('%', '').astype(float)
 df["Carpooled"] = df["Carpooled"].str.replace('%', '').astype(float)
-df["Public Trans"] = df["Public Trans"].str.replace('%', '').astype(float)
 
 df["Total"] = ((df["Total"] / 100) * 97098).round(0).astype(int)
 df["Drove Alone"] = ((df["Drove Alone"] / 100) * 80588).round(0).astype(int)
 df["Carpooled"] = ((df["Carpooled"] / 100) * 7733).round(0).astype(int)
-df["Public Trans"] = ((df["Public Trans"] / 100) * 30).round(0).astype(int)
+
+# Deleting missing data on race, poverty status, occupation, and industry
 
 print(df) #print all rows and columns of the cleaned dataframe

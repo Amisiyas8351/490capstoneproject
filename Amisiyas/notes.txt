@@ -13,7 +13,7 @@ To-do-list:
 
 1. Users will need a lot of documentation to understand what certain columns & indexes of the dataset represents
 2. Mention:
-    a. argin of error
+    a. margin of error
     b. the 2020 inflation-adjusted amounts for the money portion
 3. In Baldwin county, Alabama, there are a total of 97,098 individuals who are workers over the age of 16 (relevant for our context), 90,849 (did not work from home)
     a. 80,588 total drove alone
@@ -29,4 +29,12 @@ To-do-list:
  2024 Documentation:
 
  1. There's a lot of missing data
+ 2. In Baldwin county, Alabama, there are a total of 118306 individuals who are workers over the age of 16 (relevant for our context), 90,849 (did not work from home)
+    a. 94466 total drove alone
+    b. 7039 carpooled
+    c. 0 took public transportation
+ 3. In Mobile county, Alabama, there are a total of 182812 individuals who are workers over the age of 16 (relevant for our context), 90,849 (did not work from home)
+    a. 149677 total drove alone
+    b. 12861 carpooled
+    c. 1042 took public transportation
     
