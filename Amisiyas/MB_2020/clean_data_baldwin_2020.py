@@ -1,6 +1,8 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import mplcursors
 
-# Dataset loading, viewing, and cleaning for 2020, Baldwin County, Alabama
+# 1. Dataset loading, viewing, and cleaning for 2020, Baldwin County, Alabama
 
 df = pd.read_csv("Amisiyas/MB_2020/mot_baldwin_2020.csv")
 
@@ -61,4 +63,38 @@ df["Drove Alone"] = ((df["Drove Alone"] / 100) * 80588).round(0).astype(int)
 df["Carpooled"] = ((df["Carpooled"] / 100) * 7733).round(0).astype(int)
 df["Public Trans"] = ((df["Public Trans"] / 100) * 30).round(0).astype(int)
 
-print(df) #print all rows and columns of the cleaned dataframe
+print(df, "\n") #print all rows and columns of the cleaned dataframe
+
+# 2. Analysis of the cleaned data
+
+# Plot of carpooled workers by different groups
+ax = df.plot(y = "Carpooled", kind = "bar", ylabel = "Number of Workers Carpooled", xlabel = "Worker Groups",title = "Number of Workers Carpooled by Different Groups in Mobile County, Alabama, 2020")
+
+ax.set_xticks([]) # Removing x-axis ticks
+
+cursor = mplcursors.cursor(ax.containers[0], hover=True)
+
+@cursor.connect("add")
+def on_add(sel):
+    sel.annotation.set_text(str(df.index[sel.index]))
+plt.show()
+
+# Top 5 carpooled worker groups
+print("Top 5 carpooled worker groups:")
+top_5_carpooled = df.sort_values(by="Carpooled", ascending=False).head(5)
+print(top_5_carpooled[["Carpooled"]], "\n")
+
+# Bottom 5 drove alone worker groups
+print("Bottom 5 drove alone worker groups:")
+bottom_5_drove_alone = df.sort_values(by="Drove Alone", ascending=False).tail(5)
+print(bottom_5_drove_alone[["Drove Alone"]], "\n")
+
+# % of workers who carpooled by different groups - highlighting their proportions
+print("Worker groups with the highest proportions of carpooling:")
+df["Carpooled %"] = (df["Carpooled"] / df["Total"]) * 100
+print(df[["Carpooled %"]].sort_values(by = "Carpooled %", ascending = False).head(10), "\n")
+
+# % of workers who carpooled by different groups - highlighting their proportions - opposite of above, showing the lowest proportions of carpooling
+print("Worker groups with the lowest proportions of carpooling:")
+df["Carpooled %"] = (df["Carpooled"] / df["Total"]) * 100
+print(df[["Carpooled %"]].sort_values(by = "Carpooled %", ascending = True).head(10), "\n")
