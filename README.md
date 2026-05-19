@@ -1,7 +1,10 @@
 # Transportation Barriers to Civic Participation in Gulf Coast Alabama
 ## GC-TRAC (Team 4)
-### Project Description:
-This project analyzes transportation accessibility and its relationship to civic participation across Mobile County and Baldwin County in the Alabama Gulf Coast region. The analysis focuses on transportation barriers such as vehicle ownership, public transportation access, polling location accessibility, and travel distance to voting locations.
+  
+Project Description:
+  
+This project analyzes transportation accessibility and its relationship to civic participation across **Mobile County and Baldwin County** in the **Alabama Gulf Coast region.** The analysis focuses on transportation barriers such as **vehicle ownership, public transportation access, polling location accessibility, and travel distance to voting locations.**
+
 Files Included:
 -----------------------
 Transportation_HeatMap.pdf → Heat map visualization showing transportation barriers and polling location accessibility across ZIP codes in Mobile and Baldwin Counties.
